@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title>Book List</title>
+</head>
+<body>
+    <h1>Book List</h1>
+    <form method="GET" action="{% url 'search_books' %}">
+        <input type="text" name="q" placeholder="Search books...">
+        <button type="submit">Search</button>
+    </form>
+
+    <form method="GET" action="{% url 'filter_books' %}">
+        <input type="text" name="price" placeholder="Max Price">
+        <input type="text" name="publication_date" placeholder="Publication Year">
+        <button type="submit">Filter</button>
+    </form>
+
+    <ul>
+        {% for book in books %}
+            <li>{{ book.title }} by {{ book.author }} - ${{ book.price }} ({{ book.publication_date }})
+                <a href="{% url 'edit_book' book.id %}">Edit</a>
+                <a href="{% url 'delete_book' book.id %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_book' %}">Add New Book</a>
+</body>
+</html>
